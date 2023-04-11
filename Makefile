@@ -2,7 +2,7 @@ JAVAC=/usr/bin/javac
 .SUFFIXES: .java .class
 
 SRCDIR=src/main
-BINDIR=bin
+BINDIR=bin/main
 
 $(BINDIR)/%.class:$(SRCDIR)/%.java
 	$(JAVAC) -d $(BINDIR)/ -cp $(BINDIR) $<

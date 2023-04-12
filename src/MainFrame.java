@@ -1,4 +1,5 @@
 import javax.swing.*;
+import javax.swing.border.TitledBorder;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.*;
@@ -7,7 +8,7 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class MainFrame extends JFrame{
+public class MainFrame extends JFrame {
     private JButton findProfileDescriptionButton;
     private JButton listAllAccountsButton;
     private JButton createAnAccountButton;
@@ -32,20 +33,14 @@ public class MainFrame extends JFrame{
     private JLabel likesLabel;
     private JLabel titleLabel;
 
-    public static void main(String[] args)
-    {
+    public static void main(String[] args) {
         MainFrame mainFrame = new MainFrame();
     }
 
-    public MainFrame()
-    {
-	
-	mainPanel = new JPanel();    
-	mainPanel.setBounds(40,80,200,200);    
-        mainPanel.setBackground(Color.gray);    
+    public MainFrame() {
         setContentPane(mainPanel);
         setTitle("TikTok");
-        setSize(800,800);
+        setSize(800, 800);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         reset();
         setVisible(true);
@@ -107,29 +102,25 @@ public class MainFrame extends JFrame{
                     Account account = new Account(accountName, accountDescription);
                     bst.insert(account);
                     outputLabel.setText("Added account: " + accountName);
-                }
-                else if (OKButtonMode[0] == 2)
-                {
+                } else if (OKButtonMode[0] == 2) {
                     String accountName = textField1.getText();
                     Account temp = new Account(accountName);
 
                     Account searchRes = bst.search(temp);
 
                     // Where account is not found
-                    if (searchRes == null)
-                    {
+                    if (searchRes == null) {
                         outputLabel.setText("Account not found");
                     }
                     // Where account is found, print the profile description
-                    else outputLabel.setText("Profile description for account " + accountName + ": " + searchRes.getProfile());
-                }
-                else if (OKButtonMode[0] == 3)  {
+                    else
+                        outputLabel.setText("Profile description for account " + accountName + ": " + searchRes.getProfile());
+                } else if (OKButtonMode[0] == 3) {
                     String accountName = textField1.getText();
                     Account account = new Account(accountName);
                     bst.delete(account);
                     outputLabel.setText("Deleted account: " + accountName);
-                }
-                else if (OKButtonMode[0] ==4) {
+                } else if (OKButtonMode[0] == 4) {
                     String accountName = textField1.getText();
                     Account account = new Account(accountName);
                     JTextArea textArea = new JTextArea("");
@@ -143,10 +134,8 @@ public class MainFrame extends JFrame{
                         ArrayList<Post> posts = searchRes.getPosts();
 
                         // Where the account has no posts
-                        if (!posts.isEmpty())
-                        {
-                            for (Post post: posts)
-                            {
+                        if (!posts.isEmpty()) {
+                            for (Post post : posts) {
                                 textArea.append(post.toString());
                                 textArea.append("\n");
                             }
@@ -155,11 +144,9 @@ public class MainFrame extends JFrame{
                         // Where the account has posts
                         else outputLabel.setText("Account has no posts");
 
-                    }
-                    else outputLabel.setText("Account '" + accountName + "' could not be found");
+                    } else outputLabel.setText("Account '" + accountName + "' could not be found");
                     scrollPane.setViewportView(textArea);
-                }
-                else if (OKButtonMode[0] == 5) {
+                } else if (OKButtonMode[0] == 5) {
                     String accountName = textField1.getText();
                     Account account = new Account(accountName);
 
@@ -167,13 +154,11 @@ public class MainFrame extends JFrame{
                     Account searchRes = bst.search(account);
 
                     // Where account is not in the BST
-                    if (searchRes == null)
-                    {
+                    if (searchRes == null) {
                         outputLabel.setText("Account not found");
                     }
                     // Where account is in the BST
-                    else
-                    {
+                    else {
                         // Getting post details
                         String postName = textField3.getText();
                         int postLikes = Integer.parseInt(textField4.getText());
@@ -187,11 +172,10 @@ public class MainFrame extends JFrame{
 
                         outputLabel.setText("Added new post to account: " + accountName);
                     }
-                }
-                else if (OKButtonMode[0] == 6) {
+                } else if (OKButtonMode[0] == 6) {
                     String fileName = textField1.getText();
                     try {
-                        handleFile(fileName,bst);
+                        handleFile(fileName, bst);
                         outputLabel.setText("File added to the database");
                     } catch (FileNotFoundException ex) {
                         ex.printStackTrace();
@@ -259,8 +243,7 @@ public class MainFrame extends JFrame{
         });
     }
 
-    private void reset()
-    {
+    private void reset() {
         accountLabel.setText("Enter account name: ");
         OKButton.setVisible(false);
         outputLabel.setVisible(false);
@@ -285,18 +268,15 @@ public class MainFrame extends JFrame{
      * @throws FileNotFoundException an error reading the file
      */
     private void handleFile(String fileName, BST bst) throws FileNotFoundException {
-        try
-        {
+        try {
             File file = new File(fileName);
             Scanner reader = new Scanner(file);
 
             // Reading file line by line
-            while (reader.hasNextLine())
-            {
+            while (reader.hasNextLine()) {
                 String action = reader.next();
                 // Creating an account
-                if (action.equals("Create"))
-                {
+                if (action.equals("Create")) {
                     // Creating account
                     String accountName = reader.next();
                     String accountProfile = reader.nextLine().trim(); // Using trim to fix leading whitespace
@@ -306,8 +286,7 @@ public class MainFrame extends JFrame{
                     bst.insert(account);
                 }
                 // Adding a post to an account
-                else if (action.equals("Add"))
-                {
+                else if (action.equals("Add")) {
                     String accountName = reader.next();
                     String postName = reader.next();
                     int postLikes = reader.nextInt();
@@ -323,11 +302,95 @@ public class MainFrame extends JFrame{
                 }
 
             }
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             outputLabel.setText("Error reading the file");
             throw new FileNotFoundException("Error reading the file");
         }
+    }
+
+    {
+// GUI initializer generated by IntelliJ IDEA GUI Designer
+// >>> IMPORTANT!! <<<
+// DO NOT EDIT OR ADD ANY CODE HERE!
+        $$$setupUI$$$();
+    }
+
+    /**
+     * Method generated by IntelliJ IDEA GUI Designer
+     * >>> IMPORTANT!! <<<
+     * DO NOT edit this method OR call it in your code!
+     *
+     * @noinspection ALL
+     */
+    private void $$$setupUI$$$() {
+        final JPanel panel1 = new JPanel();
+        panel1.setLayout(new com.intellij.uiDesigner.core.GridLayoutManager(1, 1, new Insets(0, 0, 0, 0), -1, -1));
+        mainPanel = new JPanel();
+        mainPanel.setLayout(new com.intellij.uiDesigner.core.GridLayoutManager(13, 2, new Insets(0, 0, 0, 0), -1, -1));
+        panel1.add(mainPanel, new com.intellij.uiDesigner.core.GridConstraints(0, 0, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_CENTER, com.intellij.uiDesigner.core.GridConstraints.FILL_BOTH, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_SHRINK | com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_WANT_GROW, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_SHRINK | com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_GROW, null, null, null, 0, false));
+        mainPanel.setBorder(BorderFactory.createTitledBorder(null, "", TitledBorder.DEFAULT_JUSTIFICATION, TitledBorder.DEFAULT_POSITION, null, null));
+        findProfileDescriptionButton = new JButton();
+        findProfileDescriptionButton.setText("Find profile description");
+        mainPanel.add(findProfileDescriptionButton, new com.intellij.uiDesigner.core.GridConstraints(1, 0, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_CENTER, com.intellij.uiDesigner.core.GridConstraints.FILL_HORIZONTAL, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_SHRINK | com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_GROW, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        listAllAccountsButton = new JButton();
+        listAllAccountsButton.setText("List all accounts");
+        mainPanel.add(listAllAccountsButton, new com.intellij.uiDesigner.core.GridConstraints(2, 0, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_CENTER, com.intellij.uiDesigner.core.GridConstraints.FILL_HORIZONTAL, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_SHRINK | com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_GROW, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        createAnAccountButton = new JButton();
+        createAnAccountButton.setText("Create an account");
+        mainPanel.add(createAnAccountButton, new com.intellij.uiDesigner.core.GridConstraints(3, 0, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_CENTER, com.intellij.uiDesigner.core.GridConstraints.FILL_HORIZONTAL, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_SHRINK | com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_GROW, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        deleteAnAccountButton = new JButton();
+        deleteAnAccountButton.setText("Delete an account");
+        mainPanel.add(deleteAnAccountButton, new com.intellij.uiDesigner.core.GridConstraints(4, 0, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_CENTER, com.intellij.uiDesigner.core.GridConstraints.FILL_HORIZONTAL, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_SHRINK | com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_GROW, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        displayAllPostsForButton = new JButton();
+        displayAllPostsForButton.setText("Display all posts for an account");
+        mainPanel.add(displayAllPostsForButton, new com.intellij.uiDesigner.core.GridConstraints(5, 0, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_CENTER, com.intellij.uiDesigner.core.GridConstraints.FILL_HORIZONTAL, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_SHRINK | com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_GROW, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        quitButton = new JButton();
+        quitButton.setText("Quit");
+        mainPanel.add(quitButton, new com.intellij.uiDesigner.core.GridConstraints(12, 0, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_CENTER, com.intellij.uiDesigner.core.GridConstraints.FILL_HORIZONTAL, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_SHRINK | com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_GROW, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        optionLabel = new JLabel();
+        optionLabel.setText("Select an option");
+        mainPanel.add(optionLabel, new com.intellij.uiDesigner.core.GridConstraints(0, 0, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_WEST, com.intellij.uiDesigner.core.GridConstraints.FILL_NONE, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        textField1 = new JTextField();
+        textField1.setEditable(true);
+        textField1.setEnabled(true);
+        mainPanel.add(textField1, new com.intellij.uiDesigner.core.GridConstraints(1, 1, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_WEST, com.intellij.uiDesigner.core.GridConstraints.FILL_HORIZONTAL, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_WANT_GROW, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(150, -1), null, 0, false));
+        accountLabel = new JLabel();
+        accountLabel.setEnabled(true);
+        accountLabel.setText("Enter account name:");
+        mainPanel.add(accountLabel, new com.intellij.uiDesigner.core.GridConstraints(0, 1, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_WEST, com.intellij.uiDesigner.core.GridConstraints.FILL_NONE, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        accountDescription = new JLabel();
+        accountDescription.setText("Enter account description:");
+        mainPanel.add(accountDescription, new com.intellij.uiDesigner.core.GridConstraints(2, 1, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_WEST, com.intellij.uiDesigner.core.GridConstraints.FILL_NONE, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(225, 16), null, 0, false));
+        textField2 = new JTextField();
+        mainPanel.add(textField2, new com.intellij.uiDesigner.core.GridConstraints(3, 1, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_WEST, com.intellij.uiDesigner.core.GridConstraints.FILL_HORIZONTAL, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_WANT_GROW, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(225, 30), null, 0, false));
+        nameLabel = new JLabel();
+        nameLabel.setText("Enter video name:");
+        mainPanel.add(nameLabel, new com.intellij.uiDesigner.core.GridConstraints(4, 1, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_WEST, com.intellij.uiDesigner.core.GridConstraints.FILL_NONE, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        textField3 = new JTextField();
+        mainPanel.add(textField3, new com.intellij.uiDesigner.core.GridConstraints(5, 1, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_WEST, com.intellij.uiDesigner.core.GridConstraints.FILL_HORIZONTAL, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_WANT_GROW, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(150, -1), null, 0, false));
+        likesLabel = new JLabel();
+        likesLabel.setText("Enter number of likes:");
+        mainPanel.add(likesLabel, new com.intellij.uiDesigner.core.GridConstraints(6, 1, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_WEST, com.intellij.uiDesigner.core.GridConstraints.FILL_NONE, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        addANewPostButton = new JButton();
+        addANewPostButton.setText("Add a new post for an account");
+        mainPanel.add(addANewPostButton, new com.intellij.uiDesigner.core.GridConstraints(6, 0, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_CENTER, com.intellij.uiDesigner.core.GridConstraints.FILL_HORIZONTAL, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_SHRINK | com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_GROW, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        titleLabel = new JLabel();
+        titleLabel.setText("Enter video title:");
+        mainPanel.add(titleLabel, new com.intellij.uiDesigner.core.GridConstraints(8, 1, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_WEST, com.intellij.uiDesigner.core.GridConstraints.FILL_NONE, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        textField4 = new JTextField();
+        mainPanel.add(textField4, new com.intellij.uiDesigner.core.GridConstraints(7, 1, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_WEST, com.intellij.uiDesigner.core.GridConstraints.FILL_HORIZONTAL, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_WANT_GROW, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(150, -1), null, 0, false));
+        loadAFileOfButton = new JButton();
+        loadAFileOfButton.setText("Load a file of actions");
+        mainPanel.add(loadAFileOfButton, new com.intellij.uiDesigner.core.GridConstraints(7, 0, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_CENTER, com.intellij.uiDesigner.core.GridConstraints.FILL_HORIZONTAL, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_SHRINK | com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_GROW, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        textField5 = new JTextField();
+        mainPanel.add(textField5, new com.intellij.uiDesigner.core.GridConstraints(9, 1, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_WEST, com.intellij.uiDesigner.core.GridConstraints.FILL_HORIZONTAL, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_WANT_GROW, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(150, -1), null, 0, false));
+        outputLabel = new JLabel();
+        outputLabel.setText("");
+        mainPanel.add(outputLabel, new com.intellij.uiDesigner.core.GridConstraints(11, 1, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_WEST, com.intellij.uiDesigner.core.GridConstraints.FILL_NONE, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        scrollPane = new JScrollPane();
+        mainPanel.add(scrollPane, new com.intellij.uiDesigner.core.GridConstraints(10, 1, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_CENTER, com.intellij.uiDesigner.core.GridConstraints.FILL_BOTH, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_SHRINK | com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_WANT_GROW, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_SHRINK | com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_WANT_GROW, null, null, null, 0, false));
+        OKButton = new JButton();
+        OKButton.setText("OK");
+        mainPanel.add(OKButton, new com.intellij.uiDesigner.core.GridConstraints(12, 1, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_CENTER, com.intellij.uiDesigner.core.GridConstraints.FILL_HORIZONTAL, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_SHRINK | com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_GROW, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, null, new Dimension(225, 30), null, 0, false));
     }
 }

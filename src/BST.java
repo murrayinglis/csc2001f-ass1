@@ -1,7 +1,4 @@
-package main;
-
 import javax.swing.*;
-import java.util.ArrayList;
 
 /**
  * Binary search tree class

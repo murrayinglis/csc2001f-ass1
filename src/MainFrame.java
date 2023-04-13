@@ -295,7 +295,7 @@ public class MainFrame extends JFrame {
     private void initComponents() {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents  @formatter:off
         // Generated using JFormDesigner Evaluation license - unknown
-        var panel1 = new JPanel();
+        JPanel panel1 = new JPanel();
         mainPanel = new JPanel();
         findProfileDescriptionButton = new JButton();
         listAllAccountsButton = new JButton();

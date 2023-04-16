@@ -1,3 +1,5 @@
+package main;
+
 import javax.swing.*;
 
 /**
@@ -38,13 +40,16 @@ public class BST
     // Methods:
 
     /**
-     * Insert method
+     * Insert an account into the tree
      *
      * @param account the account to insert as a <code>Account</code>
      */
     public void insert(Account account) {root = insert(root, account);}
 
-    // Insert helper method
+    /**
+     * insert helper method
+     * 
+     */
     private Node insert(Node node, Account account)
     {
         if (node == null) {
@@ -62,15 +67,18 @@ public class BST
     }
 
     /**
+     * Search the tree for an account
      *
-     *
-     * @param account
-     * @return
+     * @param account the account to search for as an <code>Account</code>
+     * @return the account object in the tree as an <code>Account</code>
      */
     public Account search(Account account) {
         return search(root, account);
     }
 
+    /**
+     * search helper method
+     */
     private Account search(Node node, Account account) {
         if (node == null) {
             return null;
@@ -85,10 +93,17 @@ public class BST
         }
     }
 
+    /**
+     * Traverses the tree and prints out each account
+     * 
+     */
     public void inorderTraversal() {
         inorderTraversal(root);
     }
 
+    /**
+     * inOrderTraversal helper method
+     */
     private void inorderTraversal(Node node) {
         if (node != null) {
             inorderTraversal(node.left);
@@ -98,14 +113,17 @@ public class BST
     }
 
     /**
-     * In order traversal for the GUI
+     * In order traversal for the GUI. Appends each account to the GUI
      *
-     * @param textArea
+     * @param textArea the object to append the <code>String</code> representation of each account
      */
     public void inorderTraversal(JTextArea textArea) {
         inorderTraversal(root, textArea);
     }
 
+    /**
+     * inOrderTraversal helper method
+     */
     private void inorderTraversal(Node node, JTextArea textArea) {
         if (node != null) {
             inorderTraversal(node.left, textArea);
@@ -116,10 +134,18 @@ public class BST
         }
     }
 
+    /**
+     * Delete an account from the tree
+     * 
+     * @param account the account to delete as an <code>Account</code>
+     */
     public void delete(Account account) {
         root = delete(root, account);
     }
 
+    /**
+     * delete helper method
+     */
     private Node delete(Node node, Account account) {
         if (node == null) {
             return null;
